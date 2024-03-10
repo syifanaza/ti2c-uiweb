@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Mahasiswa</title>
+    <style>
+        body {
+            font-family: La-Signora, Lucida-Bright;
+            margin: 0;
+            padding: 0;
+            background-color: #E9967A;  
+            background: -webkit-linear-gradient(to right, #d6ae7b, #eacda3);  
+            background: linear-gradient(to right, #d6ae7b, #eacda3); 
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color:  #FFFFF0;
+
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        form {
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        label {
+            font-weight: bold;
+            color: #333;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        input[type="number"],
+        input[type="text"],
+        button {
+            width: calc(100% - 20px);
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        button {
+            background-color: #A52A2A;
+            color: white;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #A52A2A;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #A52A2A;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2 style="color: #2F4F4F; margin-bottom: 20px;">Data Mahasiswa</h2>
+        <form id="studentForm">
+            <label for="nim">NIM:</label>
+            <input type="number" id="nim" name="nim">
+            <label for="name">Nama:</label>
+            <input type="text" id="name" name="name">
+            <button type="button" onclick="saveStudent()">Save</button>
+        </form>
+        
+        <table id="studentTable">
+            <thead>
+              <tr>
+                <th>NIM</th>
+                <th>Nama</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </div>
+
+    <script>
+        // Define array untuk list mahasiswa
+        var arrStudent = [];
+
+        // Define object mahasiswa
+        function Student(nim,name) {
+            this.nim = nim;
+            this.name = name;
+        }
+
+        // Fungsi simpan data mahasiswa
+        function saveStudent() {
+            // Deklarasi variable dr id element input
+            var studentForm = document.getElementById("studentForm");
+            var nim = document.getElementById("nim").value;
+            var name = document.getElementById("name").value;
+            
+            // Buat student object baru
+            var student = new Student(nim,name);
+            arrStudent.push(student);
+            // Reset Form
+            studentForm.reset();
+            // Tampilkan data yang ditambahkan >> fungsi show
+            showStudent(student);
+
+            // Tampilkan log dan Simpan data ke array
+            console.log(student);
+            console.log(arrStudent);
+            showStudentList(student);
+        }
+        
+        // Menampilkan data mahasiswa ke HTML
+        function showStudent(student) {    
+            var tbody = document.querySelector("#studentTable tbody");
+            var tr = document.createElement("tr");
+            // buat kolom value nim
+            var tdNim = document.createElement("td");
+            tdNim.textContent = student.nim;
+            tr.appendChild(tdNim);
+
+            // buat kolom value nama
+            var tdNama = document.createElement("td");
+            tdNama.textContent = student.name;
+            tr.appendChild(tdNama);
+            
+            tbody.appendChild(tr);
+        }
+    </script>
+</body>
+</html>
